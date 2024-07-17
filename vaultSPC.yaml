@@ -1,0 +1,15 @@
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: vault-user-creds
+  namespace: vault
+spec:
+  provider: vault
+  parameters:
+    roleName: <role name>
+    vaultAddress: <vault address>
+    vaultAuthMountPath: <cluster-name>
+    objects: |
+      - objectName: <key>
+        secretPath: "<path to secret in kv store>"
+        secretKey: <key>
