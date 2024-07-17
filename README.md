@@ -15,4 +15,11 @@ helm install csi secrets-store-csi-driver/secrets-store-csi-driver --set syncSec
 helm install vault hashicorp/vault   --set "server.enabled=false"   --set "injector.enabled=false"   --set "csi.enabled=true" -n vault
 ```
 
+2. Edit the daemon set and add toleration. This will match any node that has a taint.
 
+```
+kubectl edit ds vault-csi-provider -n vault
+
+tolerations:
+- operator: Exists
+```
