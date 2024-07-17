@@ -23,3 +23,17 @@ kubectl edit ds vault-csi-provider -n vault
 tolerations:
 - operator: Exists
 ```
+
+3. Create ClusterRoleBinding
+```
+kubectl apply -f vaultCRB.yaml
+```
+4. Create a service account
+```
+kubectl apply -f vaultSA.yaml
+```
+5. Create a Secret for the service account
+```
+kubectl apply -f vaultSASecret.yaml
+```
+   
