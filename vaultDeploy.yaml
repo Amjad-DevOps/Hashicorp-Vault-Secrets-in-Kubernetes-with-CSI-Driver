@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-deployment
+  labels:
+    app: sample
+spec:
+  replicas: 1
+spec:
+  template:
+    spec:
+      serviceAccountName: vault-auth
+      containers:
+      - name: app
+        image: <image name>
+        volumeMounts:
+        - name: 'vault-user-creds'
+          mountPath: '/root/credentials'
+          readOnly: true
+      volumes:
+      - name: vault-user-creds
+        csi:
+          driver: 'secrets-store.csi.k8s.io'
+          readOnly: true
+          volumeAttributes:
+            secretProviderClass: 'vault-user-creds'
